@@ -28,4 +28,10 @@ class RockPaperScissorsTest
         RockPaperScissors rockPaperScissors = new RockPaperScissors();
         Assertions.assertThat(rockPaperScissors.calculateResult(INPUT_LINES)).isEqualTo(13268); //5990 = summe von X,Y,Z werten
     }
+
+    @Test
+    void test2(){
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+        Assertions.assertThat(rockPaperScissors.calculateResultPart2(INPUT_LINES)).isEqualTo(15508);
+    }
 }
