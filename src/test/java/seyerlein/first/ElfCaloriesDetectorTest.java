@@ -1,5 +1,6 @@
 package seyerlein.first;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -10,8 +11,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ElfCaloriesDetectorTest
 {
     @Test
@@ -20,6 +19,7 @@ class ElfCaloriesDetectorTest
         URI uri = ElfCaloriesDetectorTest.class.getResource("/first/input.txt").toURI();
         Path path = Path.of(uri);
         List<String> inputLines = Files.readAllLines(path);
-        System.out.println(inputLines);
+        ElfCaloriesDetector detector = new ElfCaloriesDetector();
+        Assertions.assertThat(detector.findElfWithMostCalories(inputLines)).isEqualTo(new Elf(229,69626));
     }
 }
