@@ -5,9 +5,45 @@ import java.util.Optional;
 
 public enum SymbolEnum
 {
-    ROCK("X", 1),
-    PAPER("Y", 2),
-    SCISSORS("Z", 3);
+    ROCK("X", 1){
+        @Override
+        public int calculateResult(OpponentSymbolEnum opponentSymbol)
+        {
+            switch (opponentSymbol){
+                case ROCK -> {return 3;}
+                case PAPER -> {return 0;}
+                case SCISSORS -> {return 6;}
+            }
+            return 0;
+        }
+    },
+    PAPER("Y", 2)
+            {
+                @Override
+                public int calculateResult(OpponentSymbolEnum opponentSymbol)
+                {
+                    switch (opponentSymbol){
+                        case ROCK -> {return 6;}
+                        case PAPER -> {return 3;}
+                        case SCISSORS -> {return 0;}
+                    }
+                    return 0;
+                }
+            },
+    SCISSORS("Z", 3)
+            {
+                @Override
+                public int calculateResult(OpponentSymbolEnum opponentSymbol)
+                {
+
+                    switch (opponentSymbol){
+                        case ROCK -> {return 0;}
+                        case PAPER -> {return 6;}
+                        case SCISSORS -> {return 3;}
+                    }
+                    return 0;
+                }
+            };
 
     private final String symbol;
     private final int value;
@@ -33,4 +69,6 @@ public enum SymbolEnum
     {
         return value;
     }
+
+    public abstract int calculateResult(OpponentSymbolEnum opponentSymbol);
 }
