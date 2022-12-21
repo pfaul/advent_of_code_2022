@@ -11,15 +11,17 @@ import java.util.List;
 @ExtendWith(ListStringResourceExtension.class)
 class ElfCaloriesDetectorTest
 {
+    private static final String INPUT_FILE = "/first/input.txt";
+
     @Test
-    void testFindElf(@ListStringResource("/first/input.txt") List<String> inputLines)
+    void testFindElf(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         ElfCaloriesDetector detector = new ElfCaloriesDetector();
         Assertions.assertThat(detector.findElfWithMostCalories(inputLines)).isEqualTo(new Elf(229, 69626));
     }
 
     @Test
-    void testFindTop3Elves(@ListStringResource("/first/input.txt") List<String> inputLines)
+    void testFindTop3Elves(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         ElfCaloriesDetector detector = new ElfCaloriesDetector();
         Assertions.assertThat(detector.calculateSumOfTop3Elves(inputLines)).isEqualTo(206780);
