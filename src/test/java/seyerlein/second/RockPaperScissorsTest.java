@@ -1,37 +1,29 @@
 package seyerlein.second;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import seyerlein.ListStringResource;
+import seyerlein.ListStringResourceExtension;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
+@ExtendWith(ListStringResourceExtension.class)
 class RockPaperScissorsTest
 {
-    private static List<String> INPUT_LINES;
+    private static final String INPUT_FILE = "/second/input.txt";
 
-    @BeforeAll
-    public static void init() throws IOException, URISyntaxException
+    @Test
+    void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
-        URI uri = RockPaperScissorsTest.class.getResource("/second/input.txt").toURI();
-        Path path = Path.of(uri);
-        INPUT_LINES = Files.readAllLines(path);
+        RockPaperScissors rockPaperScissors = new RockPaperScissors();
+        Assertions.assertThat(rockPaperScissors.calculateResult(inputLines)).isEqualTo(13268); //5990 = summe von X,Y,Z werten
     }
 
     @Test
-    void test(){
+    void test2(@ListStringResource(INPUT_FILE) List<String> inputLines)
+    {
         RockPaperScissors rockPaperScissors = new RockPaperScissors();
-        Assertions.assertThat(rockPaperScissors.calculateResult(INPUT_LINES)).isEqualTo(13268); //5990 = summe von X,Y,Z werten
-    }
-
-    @Test
-    void test2(){
-        RockPaperScissors rockPaperScissors = new RockPaperScissors();
-        Assertions.assertThat(rockPaperScissors.calculateResultPart2(INPUT_LINES)).isEqualTo(15508);
+        Assertions.assertThat(rockPaperScissors.calculateResultPart2(inputLines)).isEqualTo(15508);
     }
 }
