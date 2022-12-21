@@ -20,7 +20,7 @@ public class RucksackRearranger
                 {
                     if (secondChar == character)
                     {
-                        sum += charToInt(character);
+                        sum += CharacterEvaluator.charToInt(character);
                         finished = true;
                         break;
                     }
@@ -32,18 +32,5 @@ public class RucksackRearranger
             }
         }
         return sum;
-    }
-
-    public int charToInt(Character letter)
-    {
-        if (letter >= 'A' && letter <= 'Z')
-        {
-            return ((int) letter - 'A' + 27);
-        }
-        if (letter >= 'a' && letter <= 'z')
-        {
-            return ((int) letter - 'a' + 1);
-        }
-        return 0;
     }
 }
