@@ -6,6 +6,44 @@ public class RucksackRearranger
 {
     public int processInput(List<String> inputLines)
     {
+        int sum = 0;
+        for (String line : inputLines)
+        {
+            int lengthHalf = line.length() / 2;
+            String firstCompartment = line.substring(0, lengthHalf);
+            String secondCompartment = line.substring(lengthHalf);
+
+            boolean finished = false;
+            for (char character : firstCompartment.toCharArray())
+            {
+                for (char secondChar : secondCompartment.toCharArray())
+                {
+                    if (secondChar == character)
+                    {
+                        sum += charToInt(character);
+                        finished = true;
+                        break;
+                    }
+                }
+                if (finished)
+                {
+                    break;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int charToInt(Character letter)
+    {
+        if (letter >= 'A' && letter <= 'Z')
+        {
+            return ((int) letter - 'A' + 27);
+        }
+        if (letter >= 'a' && letter <= 'z')
+        {
+            return ((int) letter - 'a' + 1);
+        }
         return 0;
     }
 }
