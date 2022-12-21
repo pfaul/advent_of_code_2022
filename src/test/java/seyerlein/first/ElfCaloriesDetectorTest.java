@@ -1,38 +1,27 @@
 package seyerlein.first;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import seyerlein.ListStringResource;
+import seyerlein.ListStringResourceExtension;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
+@ExtendWith(ListStringResourceExtension.class)
 class ElfCaloriesDetectorTest
 {
-    private static List<String> INPUT_LINES;
-
-    @BeforeAll
-    public static void init() throws IOException, URISyntaxException
+    @Test
+    void testFindElf(@ListStringResource("/first/input.txt") List<String> inputLines)
     {
-        URI uri = ElfCaloriesDetectorTest.class.getResource("/first/input.txt").toURI();
-        Path path = Path.of(uri);
-        INPUT_LINES = Files.readAllLines(path);
+        ElfCaloriesDetector detector = new ElfCaloriesDetector();
+        Assertions.assertThat(detector.findElfWithMostCalories(inputLines)).isEqualTo(new Elf(229, 69626));
     }
 
     @Test
-    void testFindElf()
+    void testFindTop3Elves(@ListStringResource("/first/input.txt") List<String> inputLines)
     {
         ElfCaloriesDetector detector = new ElfCaloriesDetector();
-        Assertions.assertThat(detector.findElfWithMostCalories(INPUT_LINES)).isEqualTo(new Elf(229,69626));
-    }
-
-    @Test
-    void testFindTop3Elves(){
-        ElfCaloriesDetector detector = new ElfCaloriesDetector();
-        Assertions.assertThat(detector.calculateSumOfTop3Elves(INPUT_LINES)).isEqualTo(206780);
+        Assertions.assertThat(detector.calculateSumOfTop3Elves(inputLines)).isEqualTo(206780);
     }
 }
