@@ -1,10 +1,15 @@
 package seyerlein.fifth;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collector;
 
 public class Crane
 {
+    private final Pattern stepsPattern = Pattern.compile("move (\\d+) from (\\d) to (\\d)");
+
+    //NOTE: staples index starting from 0, but processing steps start from index 1
     private final Map<Integer, LinkedList<Character>> staples = new HashMap<>();
 
     public void initialize(List<String> initialState)
@@ -26,7 +31,21 @@ public class Crane
 
     public void processSteps(List<String> steps)
     {
-//TODO
+        steps.stream()
+                .map(stepsPattern::matcher)
+                .filter(Matcher::find)
+                .forEach(matcher -> {
+                    int amount = Integer.parseInt(matcher.group(1));
+                    int fromListId = Integer.parseInt(matcher.group(2)) - 1; //directly correct the index here (-1)
+                    int toListId = Integer.parseInt(matcher.group(3)) - 1; //directly correct the index here (-1)
+                    for (int i = 0; i < amount; i++)
+                    {
+                        LinkedList<Character> fromList = staples.get(fromListId);
+                        Character firstChar = fromList.removeFirst();
+                        LinkedList<Character> toList = staples.get(toListId);
+                        toList.addFirst(firstChar);
+                    }
+                });
     }
 
     public String getResult()

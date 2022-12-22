@@ -20,7 +20,6 @@ class CraneTest
         Crane crane = new Crane();
         crane.initialize(initialState);
         crane.processSteps(steps);
-        Assertions.assertThat(crane.getResult()).isEqualTo("VBJTPWJWJ");
-        ;
+        Assertions.assertThat(crane.getResult()).isEqualTo("QNHWJVJZW");
     }
 }
