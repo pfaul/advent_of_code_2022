@@ -38,13 +38,16 @@ public class Crane
                     int amount = Integer.parseInt(matcher.group(1));
                     int fromListId = Integer.parseInt(matcher.group(2)) - 1; //directly correct the index here (-1)
                     int toListId = Integer.parseInt(matcher.group(3)) - 1; //directly correct the index here (-1)
+                    LinkedList<Character> fromList = staples.get(fromListId);
+                    LinkedList<Character> toList = staples.get(toListId);
+
+                    LinkedList<Character> crates = new LinkedList<>();
                     for (int i = 0; i < amount; i++)
                     {
-                        LinkedList<Character> fromList = staples.get(fromListId);
                         Character firstChar = fromList.removeFirst();
-                        LinkedList<Character> toList = staples.get(toListId);
-                        toList.addFirst(firstChar);
+                        crates.addLast(firstChar);
                     }
+                    toList.addAll(0, crates);
                 });
     }
 
