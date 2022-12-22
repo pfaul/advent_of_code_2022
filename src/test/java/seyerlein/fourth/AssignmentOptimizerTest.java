@@ -19,7 +19,7 @@ class AssignmentOptimizerTest
     void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         AssignmentOptimizer optimizer = new AssignmentOptimizer();
-        Assertions.assertThat(optimizer.processInput(inputLines)).isEqualTo(424);
+        Assertions.assertThat(optimizer.findContainedRanges(inputLines)).isEqualTo(424);
     }
 
     @ParameterizedTest
@@ -29,9 +29,29 @@ class AssignmentOptimizerTest
             "2-8,3-7,1",
             "6-6,4-6,1",
             "2-6,4-8,0"})
-    void testSample(String inputFirst, String inputSecond, int expectedResult)
+    void testContainedRangesSample(String inputFirst, String inputSecond, int expectedResult)
     {
         AssignmentOptimizer optimizer = new AssignmentOptimizer();
-        Assertions.assertThat(optimizer.processInput(List.of(inputFirst + "," + inputSecond))).isEqualTo(expectedResult);
+        Assertions.assertThat(optimizer.findContainedRanges(List.of(inputFirst + "," + inputSecond))).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void testOverlappingRanges(@ListStringResource(INPUT_FILE) List<String> inputLines)
+    {
+        AssignmentOptimizer optimizer = new AssignmentOptimizer();
+        Assertions.assertThat(optimizer.findOverlappingRanges(inputLines)).isEqualTo(804);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"2-4,6-8,0",
+            "2-3,4-5,0",
+            "5-7,7-9,1",
+            "2-8,3-7,1",
+            "6-6,4-6,1",
+            "2-6,4-8,1"})
+    void testOverlappingRangesSample(String inputFirst, String inputSecond, int expectedResult)
+    {
+        AssignmentOptimizer optimizer = new AssignmentOptimizer();
+        Assertions.assertThat(optimizer.findOverlappingRanges(List.of(inputFirst + "," + inputSecond))).isEqualTo(expectedResult);
     }
 }
