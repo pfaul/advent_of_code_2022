@@ -5,7 +5,6 @@ import java.util.Set;
 
 public class MarkerDetector
 {
-
     public int getFirstPaketMarker(String input)
     {
         return this.getFirstMarker(input, 4);
