@@ -18,21 +18,24 @@ class MarkerDetectorTest
     @Test
     void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
+        String input = inputLines.get(0);
         MarkerDetector detector = new MarkerDetector();
-        Assertions.assertThat(detector.getFirstMarker(inputLines.get(0))).isEqualTo(1531);
+        Assertions.assertThat(detector.getFirstPaketMarker(input)).isEqualTo(1531);
+        Assertions.assertThat(detector.getFirstMessageMarker(input)).isEqualTo(2518);
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"mjqjpqmgbljsphdztnvjfqwrcgsmlb,7",
-            "bvwbjplbgvbhsrlpgdmjqwftvncz,5",
-            "nppdvjthqldpwncqszvftbrmjlhg,6",
-            "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg,10",
-            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw,11",
-            "abc,-1",
-            "abcd,4"})
-    void testSamples(String input, int expectedResult)
+    @CsvSource(value = {"mjqjpqmgbljsphdztnvjfqwrcgsmlb,7,19",
+            "bvwbjplbgvbhsrlpgdmjqwftvncz,5,23",
+            "nppdvjthqldpwncqszvftbrmjlhg,6,23",
+            "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg,10,29",
+            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw,11,26",
+            "abc,-1,-1",
+            "abcd,4,-1"})
+    void testSamples(String input, int expectedResultPaket, int expectedResultMessage)
     {
         MarkerDetector detector = new MarkerDetector();
-        Assertions.assertThat(detector.getFirstMarker(input)).isEqualTo(expectedResult);
+        Assertions.assertThat(detector.getFirstPaketMarker(input)).isEqualTo(expectedResultPaket);
+        Assertions.assertThat(detector.getFirstMessageMarker(input)).isEqualTo(expectedResultMessage);
     }
 }
