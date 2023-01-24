@@ -19,7 +19,7 @@ class MarkerDetectorTest
     void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         MarkerDetector detector = new MarkerDetector();
-        Assertions.assertThat(detector.getFirstMarker(inputLines.get(0))).isEqualTo(123);
+        Assertions.assertThat(detector.getFirstMarker(inputLines.get(0))).isEqualTo(1531);
     }
 
     @ParameterizedTest
@@ -27,8 +27,10 @@ class MarkerDetectorTest
             "bvwbjplbgvbhsrlpgdmjqwftvncz,5",
             "nppdvjthqldpwncqszvftbrmjlhg,6",
             "nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg,10",
-            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw,11"})
-    void testOverlappingRangesSample(String input, int expectedResult)
+            "zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw,11",
+            "abc,-1",
+            "abcd,4"})
+    void testSamples(String input, int expectedResult)
     {
         MarkerDetector detector = new MarkerDetector();
         Assertions.assertThat(detector.getFirstMarker(input)).isEqualTo(expectedResult);
