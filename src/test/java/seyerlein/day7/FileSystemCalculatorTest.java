@@ -12,11 +12,19 @@ import java.util.List;
 class FileSystemCalculatorTest
 {
     private static final String INPUT_FILE = "/day7/input.txt";
+    private static final String SAMPLE_INPUT_FILE = "/day7/sample_input.txt";
+
+    @Test
+    void testSample(@ListStringResource(SAMPLE_INPUT_FILE) List<String> inputLines)
+    {
+        FileSystemCalculator calculator = new FileSystemCalculator();
+        Assertions.assertThat(calculator.getSumOfDirectories(inputLines)).isEqualTo(95437);
+    }
 
     @Test
     void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         FileSystemCalculator calculator = new FileSystemCalculator();
-        Assertions.assertThat(calculator.getSumOfTotalFiles(inputLines)).isEqualTo(1);
+        Assertions.assertThat(calculator.getSumOfDirectories(inputLines)).isEqualTo(1);
     }
 }
