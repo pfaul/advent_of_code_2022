@@ -27,4 +27,17 @@ class FileSystemCalculatorTest
         FileSystemCalculator calculator = new FileSystemCalculator();
         Assertions.assertThat(calculator.getSumOfDirectories(inputLines)).isEqualTo(1642503);
     }
+
+    @Test
+    void testDirToBeDeleted(@ListStringResource(INPUT_FILE) List<String> inputLines)
+    {
+        //total disk size = 70000000
+        //required space = 30000000
+
+        //parent dir size = 46592386
+
+        //required dir size to be deleted = 16592386
+        FileSystemCalculator calculator = new FileSystemCalculator();
+        Assertions.assertThat(calculator.getDirectorySizeToBeDeleted(inputLines)).isEqualTo(17187447);
+    }
 }

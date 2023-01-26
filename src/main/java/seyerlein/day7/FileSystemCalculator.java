@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 public class FileSystemCalculator
 {
     private static final int THRESHOLD = 100000;
+    private static final int REQUIRED_DISK_SPACE = 16592386;
     private static final Pattern FILE_SIZE_PATTERN = Pattern.compile("(\\d+)\s");
 
     public int getSumOfDirectories(List<String> inputLines)
@@ -20,6 +21,19 @@ public class FileSystemCalculator
                 .map(Directory::getSize)
                 .filter(size -> size <= THRESHOLD)
                 .reduce(0, Integer::sum);
+    }
+
+    public int getDirectorySizeToBeDeleted(List<String> inputLines)
+    {
+        //parse commands into datastructure
+        List<Directory> dirs = this.parseInput(inputLines);
+        //find all dirs with specific file size
+        //sum all dirs
+        return dirs.stream()
+                .map(Directory::getSize)
+                .filter(size -> size >= REQUIRED_DISK_SPACE)
+                .min(Integer::compare)
+                .orElse(-1);
     }
 
     private List<Directory> parseInput(List<String> inputLines)
