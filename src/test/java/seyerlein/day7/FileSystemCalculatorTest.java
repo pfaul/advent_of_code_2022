@@ -25,6 +25,6 @@ class FileSystemCalculatorTest
     void test(@ListStringResource(INPUT_FILE) List<String> inputLines)
     {
         FileSystemCalculator calculator = new FileSystemCalculator();
-        Assertions.assertThat(calculator.getSumOfDirectories(inputLines)).isEqualTo(1);
+        Assertions.assertThat(calculator.getSumOfDirectories(inputLines)).isEqualTo(1642503);
     }
 }
